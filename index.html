@@ -5,112 +5,454 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kaushal Rathod - EX11 Final Project</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
-        body { line-height: 1.6; color: #333; background: #f4f4f4; padding: 20px; }
-        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
-        header { text-align: center; padding: 20px 0; border-bottom: 3px solid #2c3e50; margin-bottom: 30px; }
-        h1 { color: #2c3e50; }
-        h2 { color: #3498db; margin: 20px 0 10px; padding-bottom: 5px; border-bottom: 2px solid #eee; }
-        .student-info { background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 15px 0; }
-        .success-badge { background: #2ecc71; color: white; padding: 5px 15px; border-radius: 20px; display: inline-block; margin: 10px 0; }
-        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
-        th { background: #2c3e50; color: white; }
-        tr:hover { background: #f5f5f5; }
-        .critical { color: #e74c3c; font-weight: bold; }
-        .completed { color: #27ae60; }
-        .live-link { display: inline-block; background: #3498db; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; margin: 20px 0; font-weight: bold; }
-        .report-section { background: #f8f9fa; padding: 20px; border-radius: 5px; margin: 20px 0; }
-        footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; color: #7f8c8d; }
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #2c3e50, #4a6572);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .student-badge {
+            background: #3498db;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            margin: 10px 0;
+            font-size: 0.9rem;
+        }
+        
+        .success-badge {
+            background: #2ecc71;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            display: inline-block;
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+        }
+        
+        /* Gantt Chart Section */
+        .gantt-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #3498db;
+            display: inline-block;
+        }
+        
+        /* Gantt Table */
+        .gantt-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .gantt-table th {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .gantt-table td {
+            padding: 14px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .gantt-table tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .critical-yes {
+            color: #e74c3c;
+            font-weight: bold;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .critical-yes::before {
+            content: "⭐";
+            position: absolute;
+            left: 0;
+        }
+        
+        .critical-no {
+            color: #7f8c8d;
+        }
+        
+        .status-completed {
+            background: #2ecc71;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            display: inline-block;
+        }
+        
+        .milestone-row {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            border-left: 5px solid #3498db;
+        }
+        
+        .subtask-row {
+            background-color: white;
+            padding-left: 30px !important;
+        }
+        
+        /* Report Sections */
+        .report-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .question {
+            color: #2c3e50;
+            margin: 25px 0 10px;
+            padding-left: 20px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .answer {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            line-height: 1.7;
+        }
+        
+        /* Live Link Section */
+        .live-link-section {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            border-radius: 10px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(52, 152, 219, 0.3);
+        }
+        
+        .live-link {
+            background: white;
+            color: #2c3e50;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            display: inline-block;
+            margin: 20px 0;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        
+        .live-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #7f8c8d;
+            border-top: 1px solid #eee;
+            margin-top: 30px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            header, .gantt-section, .report-section {
+                padding: 1.5rem;
+            }
+            
+            .gantt-table {
+                font-size: 0.9rem;
+            }
+            
+            .gantt-table th,
+            .gantt-table td {
+                padding: 10px 8px;
+            }
+            
+            .live-link {
+                font-size: 1rem;
+                padding: 12px 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .gantt-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Header -->
         <header>
-            <h1>🏆 EX11 Final Project Submission</h1>
+            <h1>🎓 EX11 Final Project Submission</h1>
+            <p class="student-badge">Kaushal N Rathod | Information Technology Field Experience</p>
             <h2>Professional Portfolio Website Development</h2>
-            <div class="student-info">
-                <p><strong>Student:</strong> Kaushal N Rathod</p>
-                <p><strong>Course:</strong> Information Technology Field Experience - EX11</p>
-                <p><strong>Project:</strong> W14 Assignment - Final Project</p>
-            </div>
-            <span class="success-badge">✅ PROJECT COMPLETED SUCCESSFULLY</span>
+            <div class="success-badge">✅ PROJECT COMPLETED SUCCESSFULLY</div>
         </header>
 
-        <h2>📊 Completed Gantt Chart</h2>
-        <table>
-            <tr>
-                <th>Task / Milestone</th>
-                <th>Duration</th>
-                <th>Critical Path</th>
-                <th>Status</th>
-            </tr>
-            <tr><td><strong>Milestone 1: Research & Planning</strong></td><td>15 days</td><td class="critical">Yes</td><td class="completed">Completed</td></tr>
-            <tr><td style="padding-left: 30px;">- Research portfolio examples</td><td>4 days</td><td class="critical">Yes</td><td class="completed">Completed</td></tr>
-            <tr><td style="padding-left: 30px;">- Decide tools & platform</td><td>3 days</td><td class="critical">Yes</td><td class="completed">Completed</td></tr>
-            <tr><td style="padding-left: 30px;">- Create sitemap & wireframe</td><td>7 days</td><td class="critical">Yes</td><td class="completed">Completed</td></tr>
+        <!-- Gantt Chart Section -->
+        <section class="gantt-section">
+            <h2 class="section-title">📊 COMPLETED GANTT CHART</h2>
+            <p>Below is the detailed project timeline showing all completed milestones and tasks:</p>
             
-            <tr><td><strong>Milestone 2: Website Development</strong></td><td>13 days</td><td class="critical">Yes</td><td class="completed">Completed</td></tr>
-            <tr><td style="padding-left: 30px;">- Set up hosting & domain</td><td>2 days</td><td>No</td><td class="completed">Completed</td></tr>
-            <tr><td style="padding-left: 30px;">- Build homepage layout</td><td>5 days</td><td class="critical">Yes</td><td class="completed">Completed</td></tr>
-            <tr><td style="padding-left: 30px;">- Build portfolio page</td><td>6 days</td><td>No</td><td class="completed">Completed</td></tr>
+            <table class="gantt-table">
+                <thead>
+                    <tr>
+                        <th width="50%">Task / Milestone</th>
+                        <th width="15%">Duration (days)</th>
+                        <th width="20%">Critical Path</th>
+                        <th width="15%">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Milestone 1 -->
+                    <tr class="milestone-row">
+                        <td>Milestone 1: Research & Planning</td>
+                        <td>15</td>
+                        <td class="critical-yes">Yes</td>
+                        <td><span class="status-completed">Completed</span></td>
+                    </tr>
+                    <tr class="subtask-row">
+                        <td>- Research portfolio website examples</td>
+                        <td>4</td>
+                        <td class="critical-yes">Yes</td>
+                        <td><span class="status-completed">Completed</span></td>
+                    </tr>
+                    <tr class="subtask-row">
+                        <td>- Decide tools & hosting platform</td>
+                        <td>3</td>
+                        <td class="critical-yes">Yes</td>
+                        <td><span class="status-completed">Completed</span></td>
+                    </tr>
+                    <tr class="subtask-row">
+                        <td>- Create sitemap & wireframe</td>
+                        <td>7</td>
+                        <td class="critical-yes">Yes</td>
+                        <td><span class="status-completed">Completed</span></td>
+                    </tr>
+                    
+                    <!-- Milestone 2 -->
+                    <tr class="milestone-row">
+                        <td>Milestone 2: Website Development</td>
+                        <td>13</td>
+                        <td class="critical-yes">Yes</td>
+                        <td><span class="status-completed">Completed</span></td>
+                    </tr>
+                    <tr class="subtask-row">
+                        <td>- Set up hosting & domain</td>
+                        <td>2</td>
+                        <td class="critical-no">No</td>
+                        <td><span class="status-completed">Completed</span></td>
+                    </tr>
+                    <tr class="subtask-row">
+                        <td>- Build homepage layout</td>
+                        <td>5</td>
+                        <td class="critical-yes">Yes</td>
+                        <td><span class="status-completed">Completed</span></td>
+                    </tr>
+                    <tr class="subtask-row">
+                        <td>- Build portfolio/projects page</td>
+                        <td>6</td>
+                        <td class="critical-no">No</td>
+                        <td><span class="status-completed">Completed</span></td>
+                    </tr>
+                    
+                    <!-- Milestone 3 -->
+                    <tr class="milestone-row">
+                        <td>Milestone 3: Testing & Optimization</td>
+                        <td>12</td>
+                        <td class="critical-yes">Yes</td>
+                        <td><span class="status-completed">Completed</span></td>
+                    </tr>
+                    <tr class="subtask-row">
+                        <td>- Cross-browser & device testing</td>
+                        <td>6</td>
+                        <td class="critical-yes">Yes</td>
+                        <td><span class="status-completed">Completed</span></td>
+                    </tr>
+                    <tr class="subtask-row">
+                        <td>- Optimize performance & SEO</td>
+                        <td>5</td>
+                        <td class="critical-no">No</td>
+                        <td><span class="status-completed">Completed</span></td>
+                    </tr>
+                    <tr class="subtask-row">
+                        <td>- Collect feedback & revise</td>
+                        <td>2</td>
+                        <td class="critical-no">No</td>
+                        <td><span class="status-completed">Completed</span></td>
+                    </tr>
+                    
+                    <!-- Milestone 4 -->
+                    <tr class="milestone-row">
+                        <td>Final Project: Deployment & Launch</td>
+                        <td>13</td>
+                        <td class="critical-yes">Yes</td>
+                        <td><span class="status-completed">Completed</span></td>
+                    </tr>
+                    <tr class="subtask-row">
+                        <td>- Final review & polish</td>
+                        <td>6</td>
+                        <td class="critical-yes">Yes</td>
+                        <td><span class="status-completed">Completed</span></td>
+                    </tr>
+                    <tr class="subtask-row">
+                        <td>- Publish website live</td>
+                        <td>7</td>
+                        <td class="critical-yes">Yes</td>
+                        <td><span class="status-completed">Completed</span></td>
+                    </tr>
+                </tbody>
+            </table>
             
-            <tr><td><strong>Milestone 3: Testing & Optimization</strong></td><td>12 days</td><td class="critical">Yes</td><td class="completed">Completed</td></tr>
-            <tr><td style="padding-left: 30px;">- Cross-browser testing</td><td>6 days</td><td class="critical">Yes</td><td class="completed">Completed</td></tr>
-            <tr><td style="padding-left: 30px;">- Performance optimization</td><td>5 days</td><td>No</td><td class="completed">Completed</td></tr>
-            <tr><td style="padding-left: 30px;">- Collect feedback & revise</td><td>2 days</td><td>No</td><td class="completed">Completed</td></tr>
+            <p style="margin-top: 20px; font-style: italic; color: #7f8c8d;">
+                <strong>Project Duration:</strong> 53 total project days | <strong>Critical Path Tasks:</strong> 10 | <strong>Non-Critical Tasks:</strong> 5
+            </p>
+        </section>
+
+        <!-- Formal Report Section -->
+        <section class="report-section">
+            <h2 class="section-title">📋 FORMAL REPORT SUMMARY</h2>
             
-            <tr><td><strong>Milestone 4: Deployment & Launch</strong></td><td>13 days</td><td class="critical">Yes</td><td class="completed">Completed</td></tr>
-            <tr><td style="padding-left: 30px;">- Final review & polish</td><td>6 days</td><td class="critical">Yes</td><td class="completed">Completed</td></tr>
-            <tr><td style="padding-left: 30px;">- Publish website live</td><td>7 days</td><td class="critical">Yes</td><td class="completed">Completed</td></tr>
-        </table>
+            <h3 class="question">A. Were we successful or not? Why or why not?</h3>
+            <div class="answer">
+                <strong>✅ SUCCESSFUL:</strong> The project was completed successfully with all core objectives achieved. 
+                A fully functional, responsive portfolio website was developed and deployed. All critical path milestones 
+                were completed on schedule. The project demonstrates proficiency in web development, project management, 
+                and professional documentation.
+            </div>
+            
+            <h3 class="question">B. What were your Milestones and subtasks?</h3>
+            <div class="answer">
+                <strong>Four Main Milestones with 12 subtasks:</strong><br>
+                1. <strong>Research & Planning (15 days):</strong> Market research, tool selection, wireframing<br>
+                2. <strong>Website Development (13 days):</strong> Hosting setup, homepage & portfolio page development<br>
+                3. <strong>Testing & Optimization (12 days):</strong> Cross-browser testing, performance optimization, user feedback<br>
+                4. <strong>Deployment & Launch (13 days):</strong> Final review, polishing, and live publication
+            </div>
+            
+            <h3 class="question">C. Where did we miss deadlines? Why? How prevent future misses?</h3>
+            <div class="answer">
+                <strong>Minor delays occurred during:</strong><br>
+                • Testing phase extended by 2 days due to mobile compatibility issues<br>
+                • Performance optimization took 1 extra day for SEO implementation<br><br>
+                
+                <strong>Root Causes:</strong> Unforeseen technical challenges and learning curve for new tools.<br>
+                <strong>Prevention Strategies:</strong> Include buffer time (20% extra), conduct early technical prototyping, 
+                and implement weekly progress reviews to identify risks early.
+            </div>
+            
+            <h3 class="question">D. What did we learn from the past 8 weeks?</h3>
+            <div class="answer">
+                1. <strong>Project Management:</strong> Gantt chart utilization, milestone tracking, deadline management<br>
+                2. <strong>Technical Skills:</strong> HTML/CSS web development, responsive design, hosting deployment<br>
+                3. <strong>Professional Development:</strong> Formal reporting, presentation skills, documentation<br>
+                4. <strong>Problem Solving:</strong> Troubleshooting technical issues, adapting to schedule changes<br>
+                5. <strong>Time Management:</strong> Balancing academic requirements with project deliverables
+            </div>
+            
+            <h3 class="question">E. How will completing this project impact your future?</h3>
+            <div class="answer">
+                1. <strong>Career Portfolio:</strong> Tangible project demonstration for job applications<br>
+                2. <strong>Skill Validation:</strong> Proof of technical and project management capabilities<br>
+                3. <strong>Confidence Building:</strong> Experience managing end-to-end project lifecycle<br>
+                4. <strong>Academic Foundation:</strong> Practical application of IT field experience concepts<br>
+                5. <strong>Professional Network:</strong> Project suitable for LinkedIn and professional profiles
+            </div>
+        </section>
 
-        <h2>📋 Formal Report Summary</h2>
-        
-        <div class="report-section">
-            <h3>A. Were we successful or not? Why?</h3>
-            <p><strong>✅ SUCCESSFUL:</strong> All project objectives achieved. Portfolio website developed with responsive design, deployed live, and all documentation completed. Met critical deadlines with quality deliverables.</p>
-        </div>
+        <!-- Live Link Section -->
+        <section class="live-link-section">
+            <h2>🌐 LIVE WEBSITE ACCESS</h2>
+            <p>This website serves as the final project deliverable and demonstrates all completed work.</p>
+            
+            <a href="https://kaushalrathod5108-cmyk.github.io/kaushal-portfolio-project/" 
+               class="live-link" 
+               target="_blank">
+               🔗 CLICK HERE TO VISIT LIVE WEBSITE
+            </a>
+            
+            <p>Current URL: https://kaushalrathod5108-cmyk.github.io/kaushal-portfolio-project/</p>
+            <p style="font-size: 0.9rem; opacity: 0.9;">(Link opens in new tab - accessible on all devices)</p>
+        </section>
 
-        <div class="report-section">
-            <h3>B. What were your Milestones and subtasks?</h3>
-            <p>4 Main Milestones (detailed above): Research & Planning → Development → Testing → Deployment. Each had 3 specific subtasks totaling 53 project days.</p>
-        </div>
-
-        <div class="report-section">
-            <h3>C. Where did we miss deadlines? Prevention strategies?</h3>
-            <p><strong>Minor delays:</strong> Testing phase extended by 2 days due to mobile compatibility issues. <strong>Prevention:</strong> Earlier prototype testing and buffer time allocation in future projects.</p>
-        </div>
-
-        <div class="report-section">
-            <h3>D. What did we learn from past 8 weeks?</h3>
-            <p>Project management methodologies, web development lifecycle, importance of documentation, time management, and professional communication skills.</p>
-        </div>
-
-        <div class="report-section">
-            <h3>E. How will this project impact your future?</h3>
-            <p>Provides demonstrable portfolio piece, practical IT experience, enhanced technical skills, and project management foundation for future career.</p>
-        </div>
-
-        <div class="report-section">
-            <h3>F. Live Link to Website:</h3>
-            <a href="#" class="live-link" id="websiteLink">Loading live link...</a>
-            <p><em>This website itself serves as the completed project deliverable.</em></p>
-        </div>
-
-        <a href="https://github.com" class="live-link" style="background: #24292e;">📁 View Source Code on GitHub</a>
-
+        <!-- Footer -->
         <footer>
-            <p>Submitted by: Kaushal N Rathod | EX11 Final Project | W14 Assignment</p>
-            <p>© 2024 - Professional Portfolio Website Project</p>
+            <p>Submitted by: <strong>Kaushal N Rathod</strong> | Course: <strong>Information Technology Field Experience - EX11</strong></p>
+            <p>Project: W14 Final Assignment - Professional Portfolio Website | Submission Date: December 2024</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">
+                This project demonstrates competencies in web development, project management, and professional communication.
+            </p>
         </footer>
     </div>
 
+    <!-- Simple script to update year -->
     <script>
-        // Show current URL as live link
-        document.getElementById('websiteLink').href = window.location.href;
-        document.getElementById('websiteLink').innerHTML = '🌐 ' + window.location.href;
-        document.getElementById('websiteLink').style.background = '#2ecc71';
+        // Update copyright year automatically
+        document.addEventListener('DOMContentLoaded', function() {
+            const yearSpan = document.getElementById('currentYear');
+            if (yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+            }
+            
+            // Update live link display
+            const currentUrl = window.location.href;
+            console.log('Website is live at:', currentUrl);
+        });
     </script>
 </body>
 </html>
